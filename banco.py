@@ -18,36 +18,31 @@ while True:
     opcao = input(menu)
 
     if opcao == "d":
-        valor = float(input("Informe o valor do depósito: R$"))       
+        valor = float(input("Informe o valor do depósito: R$"))
+        print(f"Valor de R${valor:.2f} depositado com sucesso!")
         
         if valor > 0:
             saldo += valor
             extrato += f"Depósito: R${valor:.2f}.\n"
-            print(f"Valor de R${valor:.2f} depositado com sucesso!")
             
         else: print("Valor inválido para depósito. Tente novamente.")
         
     elif opcao == "s":
         valor = float(input("Informe o valor do saque: R$"))
 
-        if limite <= 0:
-            print("Valor limite diário de R$500.00 para saques foi atingido.")
+        if valor > limite:
+            print("Valor excede o limite de R$500.00 por saque.")
         elif valor <= 0:
             print("Valor inválido para saque. Tente novamente.")
         elif valor > saldo:
             print("Saldo insuficiente para saque.")
-        elif valor > limite:
-            print(f"Valor excede o limite disponível para saque. Limite restante: R${limite:.2f}")
         elif numero_saques >= LIMITE_SAQUES:
             print("Número máximo de saques diários atingido.")
         else:
             saldo -= valor
             extrato += f"Saque: R${valor:.2f}.\n"
             numero_saques += 1
-            limite -= valor
             print(f"Valor de R${valor:.2f} sacado com sucesso!")
-            if limite <= 0:
-                print("Valor limite diário de R$500.00 para saques foi atingido.")
 
     elif opcao == "e":
         print("\n================ EXTRATO ================")
@@ -61,6 +56,6 @@ while True:
     elif opcao == "q":
         print("Saindo do sistema...")
         break
-    
+        
     else: 
         print("Opção inválida. Tente novamente.")
